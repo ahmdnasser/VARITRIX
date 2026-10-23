@@ -1,0 +1,16 @@
+/* Keeps the new 16:9 solution visual separate from the bilingual message and actions. */
+.hero{grid-template-columns:minmax(0,1fr) minmax(420px,.95fr)}
+.hero-copy{position:relative;z-index:1;animation:hero-copy-in .65s ease-out both}
+.hero-media{position:relative;isolation:isolate;align-self:center;animation:hero-image-in .8s .08s ease-out both}
+.hero-media:after{content:"";position:absolute;inset:auto 8% -8% 8%;height:22%;z-index:-1;background:#2facef55;filter:blur(30px);border-radius:50%;pointer-events:none}
+.hero-media img{aspect-ratio:16/10;object-fit:cover;object-position:center;transform:scale(1.002)}
+.hero-actions .button{transition:transform .2s ease,filter .2s ease,background-color .2s ease}
+.hero-actions .button:hover{transform:translateY(-2px)}
+@keyframes hero-copy-in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes hero-image-in{from{opacity:0;transform:translateX(-18px) scale(.98)}to{opacity:1;transform:translateX(0) scale(1)}}
+html[dir="ltr"] .hero-copy{animation-name:hero-copy-in-ltr}html[dir="ltr"] .hero-media{animation-name:hero-image-in-ltr}
+@keyframes hero-copy-in-ltr{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes hero-image-in-ltr{from{opacity:0;transform:translateX(18px) scale(.98)}to{opacity:1;transform:translateX(0) scale(1)}}
+@media(max-width:960px){.hero{grid-template-columns:1fr}.hero-media{width:100%;max-width:760px}.hero-media img{aspect-ratio:16/9}.hero-copy{animation-name:hero-copy-in}.hero-media{animation-name:hero-image-in}}
+@media(max-width:680px){.hero{gap:2rem}.hero-media img{aspect-ratio:4/3}.hero-media:after{filter:blur(20px)}}
+@media(prefers-reduced-motion:reduce){.hero-copy,.hero-media{animation:none}.hero-actions .button{transition:none}.hero-actions .button:hover{transform:none}}
