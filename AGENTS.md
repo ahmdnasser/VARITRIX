@@ -11,8 +11,9 @@ You are maintaining the public VARITRIX bilingual technology company website. Ke
 
 ## Lead handling and safety
 
-- Never commit `.env`, API keys, webhook URLs, personal contact data or credentials.
-- Keep `/api/lead.mjs` validating submissions and returning a useful configuration error if `LEAD_WEBHOOK_URL` is absent.
+- Never commit `.env`, API keys, Google service-account JSON, personal contact data or credentials.
+- Keep `/api/lead.mjs` validating submissions, enforcing basic spam controls, and appending rows only through server-side Google Sheets credentials.
+- The configured Google service account must have Editor access only to the approved `Customer Requests` sheet. Never use browser cookies, a Google session, or a user password as an application credential.
 - Do not publish, connect a Facebook Page, use browser/session credentials, change DNS, or deploy to a production account without explicit user authorization and a confirmed account connection.
 
 ## Delivery checklist

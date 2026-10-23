@@ -7,7 +7,7 @@ A fast bilingual Arabic/English marketing site for VARITRIX, a technology soluti
 - Responsive Arabic-first / English toggle, accessible navigation and contact form
 - Company profile and services: ERP, IoT, custom software, websites and mobile apps
 - SEO metadata, Open Graph fields and LocalBusiness JSON-LD
-- Vercel serverless lead endpoint with spam honeypot and validation
+- Vercel serverless Google Sheets lead endpoint with validation, origin checks, time trap, honeypot and per-instance rate limiting
 - Facebook route, launch copy and a social-banner brief in `launch/`
 
 ## Local preview
@@ -18,11 +18,12 @@ Open `index.html` for the page design. To test lead submission locally, run `npx
 
 1. Push this repository to GitHub.
 2. Import `ahmdnasser/VARITRIX` in Vercel; Framework Preset: **Other**.
-3. Add `LEAD_WEBHOOK_URL` in Vercel Project Settings → Environment Variables. It must be an approved HTTPS webhook that forwards leads to the company inbox or CRM.
-4. Deploy and replace the canonical URL in `index.html` with your production domain.
-5. Verify the form, Facebook link, mobile menu and Arabic/English switch on the deployed domain.
+3. In Google Cloud, create a dedicated service account, enable the Google Sheets API, and share the existing Customer Requests Sheet with its `client_email` as **Editor**. This step must be done by the account owner; do not use browser cookies or personal account passwords as server credentials.
+4. Add `GOOGLE_SERVICE_ACCOUNT_JSON`, `GOOGLE_SHEET_ID`, and `GOOGLE_SHEET_TAB` from `.env.example` in Vercel Project Settings → Environment Variables.
+5. Deploy and submit a real test lead. The API appends it to `Customer Requests!A:M`, shows success, then opens WhatsApp to `+20 122 495 0653` with a prefilled message.
+6. Replace the canonical URL in `index.html` with your production domain if it changes, and verify the form, Facebook link, mobile menu and Arabic/English switch.
 
-The site works without the environment variable, but the form intentionally reports that lead delivery is not configured rather than losing enquiries.
+The form never exposes Google credentials to the browser. Until the three Vercel environment variables are configured, it intentionally returns an error instead of losing enquiries.
 
 ## Brand assets and launch readiness
 
